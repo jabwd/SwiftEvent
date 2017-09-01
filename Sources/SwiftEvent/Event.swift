@@ -16,16 +16,16 @@ public protocol EventHandler {
 	func readEvent()
 	func writeEvent()
 }
-extension EventHandler {
+public extension EventHandler {
 	func readEvent() {}
 	func writeEvent() {}
 }
 
 public class Event {
-	let types:         [EventType]
-	let fd:            Int32
-	var internalEvent: SocketEvent!
-	var handler:       EventHandler?
+	public let types:   [EventType]
+	public let fd:      Int32
+	var internalEvent:  SocketEvent!
+	public var handler: EventHandler?
 
 	public init(types: [EventType], fd: Int32, handler: EventHandler? = nil) {
 		self.types = types
