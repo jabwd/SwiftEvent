@@ -3,8 +3,8 @@
 /// More logical name for starting the libevent
 /// event loop.
 ///
-class SwiftRunloop {
-    static func start() {
+public class SwiftRunloop {
+    public static func start() {
         EventManager.shared.run()
     }
 }

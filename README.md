@@ -42,8 +42,5 @@ This is as simple as:
 
 `SwiftRunloop.start()`
 
-or alternatively:
-
-`EventManager.shared.run()`
 
 

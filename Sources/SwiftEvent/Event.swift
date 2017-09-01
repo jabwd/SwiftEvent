@@ -2,7 +2,7 @@ import EventC
 
 typealias SocketEvent = OpaquePointer
 
-enum EventType: Int16 {
+public enum EventType: Int16 {
 	case timeout     = 0x01
 	case read        = 0x02
 	case write       = 0x04
@@ -12,7 +12,7 @@ enum EventType: Int16 {
 	case closed      = 0x80
 }
 
-protocol EventHandler {
+public protocol EventHandler {
 	func readEvent()
 	func writeEvent()
 }
@@ -21,13 +21,13 @@ extension EventHandler {
 	func writeEvent() {}
 }
 
-class Event {
+public class Event {
 	let types:         [EventType]
 	let fd:            Int32
 	var internalEvent: SocketEvent!
 	var handler:       EventHandler?
 
-	init(types: [EventType], fd: Int32, handler: EventHandler? = nil) {
+	public init(types: [EventType], fd: Int32, handler: EventHandler? = nil) {
 		self.types = types
 		self.fd    = fd
 		self.handler = handler
@@ -52,7 +52,7 @@ class Event {
 		}
 	}
 
-	func handle(type: EventType) {
+	internal func handle(type: EventType) {
 		switch(type) {
 		case .read:
 			handler?.readEvent()
@@ -68,20 +68,20 @@ class Event {
 		}
 	}
 
-	func remove() {
+	public func remove() {
 		if let internalEvent = internalEvent {
 			event_del(internalEvent)
 		}
 	}
 
-	func add()
+	public func add()
 	{
 		if let internalEvent = internalEvent {
 			event_add(internalEvent, nil)
 		}
 	}
 
-	func getEvent() -> SocketEvent {
+	internal func getEvent() -> SocketEvent {
 		return internalEvent!
 	}
 

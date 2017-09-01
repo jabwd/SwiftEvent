@@ -2,13 +2,13 @@ import EventC
 
 typealias EventBase = OpaquePointer
 
-class EventManager {
-	static internal let shared = EventManager()
+public class EventManager {
+    public static let shared = EventManager()
 
 	internal let eventBase:   EventBase
 	private var events: [Event]
 
-	init() {
+	public init() {
 		eventBase = event_base_new()
 		events    = [Event]()
 	}
@@ -17,12 +17,12 @@ class EventManager {
 		event_free(eventBase)
 	}
 
-	func register(event: Event) {
+	public func register(event: Event) {
 		event.add()
 		events.append(event)
 	}
 
-	func remove(event: Event) {
+	public func remove(event: Event) {
 		// The event instance takes care of removing and Freeing
 		// the libevent event from the eventBase
 		events = events.filter { !($0 === event) }
@@ -32,7 +32,7 @@ class EventManager {
 		event.remove()
 	}
 
-	func run() {
+	internal func run() {
 		guard event_base_dispatch(eventBase) == 1 else {
 			print("[Server] Event loop error!")
 			return
