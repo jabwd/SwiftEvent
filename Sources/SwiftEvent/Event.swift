@@ -1,4 +1,4 @@
-import EventC
+import CEvent
 
 typealias SocketEvent = OpaquePointer
 
